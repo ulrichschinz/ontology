@@ -144,11 +144,15 @@ def init_db(graph_dir: str) -> kuzu.Connection:
 
     Creates the Entity and Relation tables if they do not already exist.
     Safe to call on every script invocation — operations are idempotent.
+
+    Note: kùzu 0.11.x requires a file path (not a directory). We use
+    graph_dir with a .db suffix as the database file.
     """
     db_path = Path(graph_dir)
     db_path.mkdir(parents=True, exist_ok=True)
+    db_file = db_path.with_suffix(".db")
 
-    db = kuzu.Database(str(db_path))
+    db = kuzu.Database(str(db_file))
     conn = kuzu.Connection(db)
 
     conn.execute(

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+import os
+os.environ.setdefault('HF_HUB_OFFLINE', '1')
+
 """
 Ontology graph operations: create, query, relate, validate, search.
 
